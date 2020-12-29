@@ -55,8 +55,9 @@ def evaluale(text):
     elif entity == 'open\\vlc':
         speak('ok, opening vlc')
         os.system('"C:\Program Files\VideoLAN\VLC\vlc.exe"')
-
-
+    elif entity == 'open\\firefox':
+        speak('ok, opening firefox')
+        os.system('"C:\Program Files\Mozilla Firefox\firefox.exe"')
     else:
         pass
 
@@ -80,9 +81,6 @@ while True:
         # convert it to a json/dictionary
         result = json.loads(result)
         text = result['text']
-
-        print(result['result'])
-
         evaluale(text)
         
         
