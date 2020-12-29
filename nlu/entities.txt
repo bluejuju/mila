@@ -1,8 +1,9 @@
-open\notepad
-open\chrome
-time\getTime
-time\getYear
 time\getWeather
+open\chrome
 open\firefox
-open\mpc
+time\getTime
+open\notepad
 time\getDate
+time\getYear
+open\mpc
+close\firefox

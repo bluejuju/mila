@@ -44,7 +44,7 @@ commands:
     input: Start Notepad
     entity: open
     action: notepad
-  # Browser
+  # Open Browser
   - command:
     input: Open Chrome
     entity: open
@@ -77,6 +77,14 @@ commands:
     input: Open video lan media player
     entity: open
     action: mpc
+  - command:
+    input: Close firefox
+    entity: close
+    action: firefox
+  - command:
+    input: Terminate firefox
+    entity: close
+    action: firefox
 
 
 

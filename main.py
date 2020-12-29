@@ -4,7 +4,7 @@
 #!/usr/bin/env python3
 
 from vosk import Model, KaldiRecognizer
-import os
+import psutil, os
 import subprocess
 import pyaudio
 import json
@@ -26,6 +26,10 @@ def speak(text):
     engine.say(text)
     engine.runAndWait()
 
+def close_program(p):
+    for pid in (process.pid for process in psutil.process_iter() if process.name()==p):
+        os.kill(pid)
+
 def evaluale(text):
     output = classify(text)
 
@@ -34,7 +38,7 @@ def evaluale(text):
 
     print('You said: {}  Confidence: {}'.format(text, conf))
 
-    if conf < 0.997:
+    if conf < 0.995:
         return
     
     if entity == 'time\\getTime':
@@ -48,16 +52,21 @@ def evaluale(text):
         os.system('notepad.exe')
     elif entity == 'open\\chrome':
         speak('ok, opening google chrome')
-        os.system('"C:\Program Files\Google\Chrome\Application\chrome.exe"')
+        os.system('"C:/Program Files/Google/Chrome/Application/chrome.exe"')
     elif entity == 'open\\mpc':
         speak('ok, opening media player classic')
-        os.system('"C:\Program Files\MPC-HC\mpc-hc64.exe"')
+        os.system('"C:/Program Files/MPC-HC/mpc-hc64.exe"')
     elif entity == 'open\\vlc':
         speak('ok, opening vlc')
-        os.system('"C:\Program Files\VideoLAN\VLC\vlc.exe"')
+        os.system('"C:/Program Files/VideoLAN\VLC/lc.exe"')
     elif entity == 'open\\firefox':
         speak('ok, opening firefox')
-        os.system('"C:\Program Files\Mozilla Firefox\firefox.exe"')
+        os.system('"C:/Program Files/Mozilla Firefox/firefox.exe"')
+
+    # Close programs
+    elif entity == 'close\\firefox':
+        speak('alright, closing firefox')
+        close_program('firefox.exe')
     else:
         pass
 

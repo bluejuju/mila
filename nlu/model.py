@@ -5,7 +5,7 @@ import numpy as np
 
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense
+from tensorflow.keras.layers import LSTM, Dense, Bidirectional
 from tensorflow.keras.utils import to_categorical
 
 data = yaml.safe_load(open('nlu\\train.yml').read())
@@ -69,7 +69,7 @@ for output in outputs:
 output_data = to_categorical(output_data, len(labels))
 
 model = Sequential()
-model.add(LSTM(256))
+model.add(Bidirectional(LSTM(256)))
 model.add(Dense(len(labels), activation='softmax'))
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['acc'])
