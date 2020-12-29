@@ -27,8 +27,9 @@ def speak(text):
     engine.runAndWait()
 
 def close_program(p):
-    for pid in (process.pid for process in psutil.process_iter() if process.name()==p):
-        os.kill(pid)
+    for proc in (proc for proc in psutil.process_iter()):
+        if proc.name == p:
+            proc.kill()
 
 def evaluale(text):
     output = classify(text)
@@ -38,7 +39,7 @@ def evaluale(text):
 
     print('You said: {}  Confidence: {}'.format(text, conf))
 
-    if conf < 0.995:
+    if conf < 0.97:
         return
     
     if entity == 'time\\getTime':
@@ -67,6 +68,12 @@ def evaluale(text):
     elif entity == 'close\\firefox':
         speak('alright, closing firefox')
         close_program('firefox.exe')
+    elif entity == 'close\\chrome':
+        speak('alright, closing google chrome')
+        close_program('chrome.exe')
+    elif entity == 'close\\notepad':
+        speak('alright, closing notepad')
+        close_program('notepad.exe')
     else:
         pass
 

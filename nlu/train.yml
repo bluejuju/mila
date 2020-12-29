@@ -85,6 +85,22 @@ commands:
     input: Terminate firefox
     entity: close
     action: firefox
+  - command:
+    input: Close google chrome
+    entity: close
+    action: chrome
+  - command:
+    input: Terminate google chrome
+    entity: close
+    action: chrome
+  - command:
+    input: Close notepad
+    entity: close
+    action: notepad
+  - command:
+    input: Terminate notepad
+    entity: close
+    action: notepad
 
 
 

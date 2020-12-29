@@ -1,9 +1,11 @@
-time\getWeather
-open\chrome
-open\firefox
-time\getTime
-open\notepad
 time\getDate
-time\getYear
+open\firefox
+open\chrome
 open\mpc
+time\getYear
 close\firefox
+close\chrome
+open\notepad
+time\getWeather
+close\notepad
+time\getTime
