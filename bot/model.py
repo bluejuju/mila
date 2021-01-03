@@ -25,6 +25,11 @@ for (inp, out) in zip(inputs, outputs):
     for ch in out:
         chars.add(ch)
 
+# Write chars to file
+fwrite = open('bot\chars.txt', 'w', encoding='utf-8')
+fwrite.write(''.join(chars))
+fwrite.close()
+
 
 # Map char to index, index to char
 chr2idx = {}
@@ -59,7 +64,7 @@ for i, (inp, out) in enumerate(zip(inputs, outputs)):
 
 
 
-latent_dim = 128
+latent_dim = 256
 
 # Encoder
 encoder_input                 = Input(shape=(None, num_tokens))
@@ -79,4 +84,5 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['acc']
 model.summary()
 
 
-model.fit([encoder_inputs, decoder_inputs], decoder_outputs, epochs=1024)
+model.fit([encoder_inputs, decoder_inputs], decoder_outputs, epochs=2048)
+model.save('bot\chatbot.h5')
