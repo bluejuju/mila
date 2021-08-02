@@ -1,17 +1,18 @@
 
 # Import libraries
 
-# Branch 0.2
-
 #!/usr/bin/env python3
 
 from vosk import Model, KaldiRecognizer
 import os
 import pyaudio
-import pyttsx3
 import json
+import pyttsx3
+# Import the core lib
+from core import SystemInfo
 
-
+# Import NLU classifier
+from nlu.classifier import classify
 
 # Speech Synthesis
 engine = pyttsx3.init()
@@ -27,11 +28,11 @@ rec = KaldiRecognizer(model, 16000)
 
 # Opens microphone for listening.
 p = pyaudio.PyAudio()
-stream = p.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=8000)
+stream = p.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=4096)
 stream.start_stream()
 
 while True:
-    data = stream.read(4000)
+    data = stream.read(2048)
     if len(data) == 0:
         break
     if rec.AcceptWaveform(data):
@@ -39,7 +40,9 @@ while True:
         result = rec.Result()
         # convert it to a json/dictionary
         result = json.loads(result)
+        text = result['text']
 
-        print(result['text'])
+        entity = classify(text)
 
-        speak(result['text'])
+        if entity == 'time\\getTime':
+            speak(SystemInfo.get_time())
